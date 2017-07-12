@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0046)http://adamlu.net/rabbitmq/tutorial-one-python -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard"><meta name="googlebot" content="NOODP"><meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"><meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"><link rel="stylesheet" href="./RabbitMQ tutorial -  Hello world! _files/rabbit.css" type="text/css"><link rel="icon" type="/image/vnd.microsoft.icon" href="http://www.rabbitmq.com/favicon.ico"><link rel="stylesheet" href="./RabbitMQ tutorial -  Hello world! _files/tutorial.css" type="text/css"><script type="text/javascript" async="" src="./RabbitMQ tutorial -  Hello world! _files/ga.js"></script><script type="text/javascript" async="" src="./RabbitMQ tutorial -  Hello world! _files/ga.js"></script><script src="./RabbitMQ tutorial -  Hello world! _files/ga(1).js" async="" type="text/javascript"></script><script type="text/javascript" src="./RabbitMQ tutorial -  Hello world! _files/site.js"></script><style type="text/css"></style><script type="text/javascript" src="./RabbitMQ tutorial -  Hello world! _files/ga-bootstrap.js"></script>
+    <title>RabbitMQ tutorial - "Hello world!"</title>
+  <style>[touch-action="none"]{ -ms-touch-action: none; touch-action: none; }[touch-action="pan-x"]{ -ms-touch-action: pan-x; touch-action: pan-x; }[touch-action="pan-y"]{ -ms-touch-action: pan-y; touch-action: pan-y; }[touch-action="scroll"],[touch-action="pan-x pan-y"],[touch-action="pan-y pan-x"]{ -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; }</style><style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -90px !important;
+    width: 180px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style></head>
+  <body><div id="outerContainer"><h1><a href="http://www.rabbitmq.com/"><img src="./RabbitMQ tutorial -  Hello world! _files/rabbitmq_logo_strap.png" alt="RabbitMQ" border="0" height="76" width="361"></a></h1><div class="s2-logo"><a href="http://www.springsource.com/"><img src="./RabbitMQ tutorial -  Hello world! _files/spring09_logo.png" alt="SpringSource" border="0" height="50" width="240"></a></div><div id="search-box"><form action="http://adamlu.net/search.html" method="get"><input name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" type="text"><input id="search-button" alt="Search" value="" type="submit"></form></div><ul class="mainNav"><li><a href="http://www.rabbitmq.com/download.html">Download</a></li><li><a href="http://www.rabbitmq.com/documentation.html">Documentation</a></li><li><a href="http://www.rabbitmq.com/getstarted.html">Get Started</a></li><li><a href="http://www.rabbitmq.com/services.html">Services</a></li><li><a href="http://www.rabbitmq.com/contact.html">Community</a></li><li><a href="http://www.rabbitmq.com/blog/">Blog</a></li></ul><div class="nav-separator"></div>
+<div id="sidebar" class="tutorial-one">
+  <ul xmlns="" id="tutorials">
+        <li id="tutorial-zero">
+          <h2><span class="tute-num">0</span> <a href="http://www.rabbitmq.com/tutorials/amqp-concepts.html">AMQP Concepts</a></h2>
+          <p>
+            <img src="./RabbitMQ tutorial -  Hello world! _files/amqp-concepts.png" width="180">
+          </p>
+        </li>
+        <li id="tutorial-one" forwards="">
+          <h2><span class="tute-num">1</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-one-python.html">"Hello World!"</a></h2>
+          <p>
+            The simplest thing that does <em>something</em>
+          </p>
+          <p><img src="./RabbitMQ tutorial -  Hello world! _files/python-one.png" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-java.html">Java</a>
+          </p>
+        </li>
+        <li id="tutorial-two">
+          <h2><span class="tute-num">2</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">Work queues</a></h2>
+          <p>
+            Distributing tasks among workers
+          </p>
+          <p><img src="./RabbitMQ tutorial -  Hello world! _files/python-two.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-java.html">Java</a>
+          </p>
+        </li>
+        <li id="tutorial-three">
+          <h2><span class="tute-num">3</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-three-python.html">Publish/Subscribe</a></h2>
+          <p>
+            Sending messages to many consumers at once
+          </p>
+          <p><img src="./RabbitMQ tutorial -  Hello world! _files/python-three.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-java.html">Java</a>
+          </p>
+        </li>
+
+        <li id="tutorial-four">
+          <h2><span class="tute-num">4</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-four-python.html">Routing</a></h2>
+          <p>
+	    Receiving messages selectively
+          </p>
+          <p><img src="./RabbitMQ tutorial -  Hello world! _files/python-four.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-java.html">Java</a>
+          </p>
+        </li>
+
+        <li id="tutorial-five">
+          <h2><span class="tute-num">5</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-five-python.html">Topics</a></h2>
+          <p>
+	    Receiving messages based on a pattern
+          </p>
+          <p><img src="./RabbitMQ tutorial -  Hello world! _files/python-five.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-java.html">Java</a>
+          </p>
+        </li>
+
+        <li id="tutorial-six">
+          <h2><span class="tute-num">6</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-six-python.html">RPC</a></h2>
+          <p>
+	    Remote procedure call implementation
+          </p>
+          <p><img src="./RabbitMQ tutorial -  Hello world! _files/python-six.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-java.html">Java</a>
+          </p>
+        </li>
+      </ul>
+</div>
+
+<div id="tutorial">
+
+<h2>介绍</h2>
+<div xmlns="" class="aside">
+    <h3>从哪里获得帮助</h3>
+    <p>
+        如果你在这篇教程中遇到了困难，你可以通过讨论列表或者直接
+        <a href="http://www.rabbitmq.com/contact.html">联系我们</a>
+    </p>
+
+  </div>
+
+<p>RabbitMQ是一个消息代理。它的核心原理非常简单：接收和发送消息。你可以把它想像成一个邮局：你把信件放入邮箱，邮递员就会把信件投递到你的收件人处。在这个比喻中，RabbitMQ是一个邮箱、邮局、邮递员。</p>
+<p>RabbitMQ和邮局的主要区别是，它处理的不是纸，而是接收、存储和发送二进制的数据——<em>消息</em>。</p>
+<p>一般提到RabbitMQ和消息，都用到一些专有名词。</p>
+<ul>
+<li>
+<p><em>生产(Producing)</em>意思就是发送。发送消息的程序就是一个<em>生产者(producer)</em>。我们一般用"P"来表示：
+   </p>
+   <div class="diagram">
+     <img src="./RabbitMQ tutorial -  Hello world! _files/producer.png" height="50">
+     <div class="diagram_source">
+     digraph {
+       bgcolor=transparent;
+       truecolor=true;
+       rankdir=LR;
+       node [style="filled"];
+       //
+       P1 [label="P", fillcolor="#00ffff"];
+     }
+     </div>
+   </div><p></p>
+</li>
+<li>
+   <p><em>队列(queue)</em>就是邮箱的名称。消息通过你的应用程序和RabbitMQ进行传输，它们能够只存储在一个<em>队列（queue）</em>中。
+   <em>队列（queue）</em>没有任何限制，你要存储多少消息都可以——基本上是一个无限的缓冲。多个<em>生产者（producers）</em>能够把消息发送给同一个队列，同样，多个<em>消费者（consumers）</em>也能攻从一个<em>队列（queue）</em>中获取数据。队列可以化城这样（图上是队列的名称）：</p>
+   <div class="diagram">
+     <img src="./RabbitMQ tutorial -  Hello world! _files/queue.png" height="90">
+     <div class="diagram_source">
+     digraph {
+       bgcolor=transparent;
+       truecolor=true;
+       rankdir=LR;
+       node [style="filled"];
+       //
+       subgraph cluster_Q1 {
+         label="queue_name";
+         color=transparent;
+         Q1 [label="{||||}", fillcolor="red", shape="record"];
+       };
+     }
+     </div>
+   </div><p></p>
+</li>
+<li>
+<p><em>消费（Consuming）</em>和获取消息是一样的意思。一个<em>消费者（consumer）</em>就是一个等待获取消息的程序。我们把它画作"C"：</p>
+   <div class="diagram">
+     <img src="./RabbitMQ tutorial -  Hello world! _files/consumer.png" height="50">
+     <div class="diagram_source">
+     digraph {
+       bgcolor=transparent;
+       truecolor=true;
+       rankdir=LR;
+       node [style="filled"];
+       //
+       C1 [label="C", fillcolor="#33ccff"];
+     }
+     </div>
+   </div><p></p>
+</li>
+</ul>
+<h2>Hello World!</h2>
+<h3>（使用pika 0.9.5 Python客户端）</h3>
+<p>我们的“Hello world”不会很复杂——仅仅发送一个消息，然后获取它并输出到屏幕。这样以来我们需要两个程序，一个用作发送消息，另一个接受消息并打印消息内容</p>
+<p>我们大体的设计是这样的：</p>
+<div class="diagram">
+  <img src="./RabbitMQ tutorial -  Hello world! _files/python-one-overall.png" height="100">
+  <div class="diagram_source">
+digraph G {
+      bgcolor=transparent;
+      truecolor=true;
+      rankdir=LR;
+      node [style="filled"];
+      //
+      P1 [label="P", fillcolor="#00ffff"];
+      subgraph cluster_Q1 {
+        label="hello";
+    color=transparent;
+        Q1 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      C1 [label="C", fillcolor="#33ccff"];
+      //
+      P1 -&gt; Q1 -&gt; C1;
+}
+</div>
+</div>
+
+<p>生产者（Producer）把消息发送到一个名为“hello”的队列中。消费者（consumer）从这个队列中获取消息。</p>
+<blockquote>
+<h4>RabbitMQ库</h4>
+<p>RabbitMQ使用的是AMQP协议。要使用她你就必须需要一个使用同样协议的库。几乎所有的编程语言都有可选择的库。python也是一样，可以从以下几个库中选择：</p>
+<ul>
+<li><a href="http://barryp.org/software/py-amqplib/">py-amqplib</a></li>
+<li><a href="https://launchpad.net/txamqp">txAMQP</a></li>
+<li><a href="http://github.com/pika/pika">pika</a></li>
+</ul>
+<p>在这一系列教程中，我们打算使用<span class="code ">pika</span>。要安装pika，你可以使用<a href="http://pip.openplans.org/"><span class="code ">pip</span></a>这个包管理工具：</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo pip install <span class="nv">pika</span><span class="o">==</span>0.9.5
+</pre></div>
+
+
+<p>安装过程依赖于<span class="code ">pip</span>和<span class="code ">git-core</span>两个包，你需要先安装它们。</p>
+<ul>
+<li>
+<p>Ubuntu平台</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install python-pip git-core
+</pre></div>
+
+
+</li>
+<li>
+<p>Debian平台</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install python-setuptools git-core
+<span class="nv">$ </span>sudo easy_install pip
+</pre></div>
+
+
+</li>
+<li>
+<p>Windows平台
+运行easy_install的安装程序<a href="http://pypi.python.org/pypi/setuptools"><span class="code ">setuptools</span></a>即可，安装后运行以下命令</p>
+<div class="highlight"><pre>&gt; easy_install pip
+&gt; pip install <span class="nv">pika</span><span class="o">==</span>0.9.5
+</pre></div>
+
+
+</li>
+</ul>
+</blockquote>
+<h3>发送消息</h3>
+<div class="diagram">
+  <img src="./RabbitMQ tutorial -  Hello world! _files/sending.png" height="100">
+  <div class="diagram_source">
+  digraph {
+      bgcolor=transparent;
+      truecolor=true;
+      rankdir=LR;
+      node [style="filled"];
+      //
+      P1 [label="P", fillcolor="#00ffff"];
+      subgraph cluster_Q1 {
+        label="hello";
+        color=transparent;
+        Q1 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      //
+      P1 -&gt; Q1;
+  }
+  </div>
+</div>
+
+<p>我们第一个程序<span class="code ">send.py</span>会发送一个消息到队列中。首先要做的事情就是建立一个到RabbitMQ服务器的连接。</p>
+<div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="k">import</span> <span class="nn">pika</span>
+
+<span class="n">connection</span> <span class="o">=</span> <span class="n">pika</span><span class="o">.</span><span class="n">BlockingConnection</span><span class="p">(</span><span class="n">pika</span><span class="o">.</span><span class="n">ConnectionParameters</span><span class="p">(</span>
+               <span class="s">'localhost'</span><span class="p">))</span>
+<span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">channel</span><span class="p">()</span>
+</pre></div>
+
+
+<p>现在我们已经连接上服务器了，那么，在发送消息之前我们需要确认队列是存在的。如果我们把消息发送到一个不存在的队列，RabbitMQ会丢弃这条消息。我门先创建一个名为<em>hello</em>的队列，然后把消息发送到这个队列中。</p>
+<div class="highlight"><pre><span class="n">channel</span><span class="o">.</span><span class="n">queue_declare</span><span class="p">(</span><span class="n">queue</span><span class="o">=</span><span class="s">'hello'</span><span class="p">)</span>
+</pre></div>
+
+
+<p>这时候我们就可以发送消息了，我们第一条消息只包含了 <em>Hello World!</em>字符串，我们打算把它发送到我们的<em>hello</em>队列。</p>
+
+<p>在RabbitMQ中，消息是不能直接发送到队列，它需要发送到<em>交换器（exchange）</em>中。我们不打算在这里深入讨论它——你可以通过<a href="http://www.rabbitmq.com/tutorials/tutorial-three-python.html">教程的第三部分</a>了解更多。现在我们所需要了解的是如何使用默认的交换器（exchange），它使用一个空字符串来标识。交换器允许我们指定某条消息需要投递到哪个队列，<span class="code ">routing_key</span>参数必须指定为队列的名称：</p>
+<div class="highlight"><pre><span class="n">channel</span><span class="o">.</span><span class="n">basic_publish</span><span class="p">(</span><span class="n">exchange</span><span class="o">=</span><span class="s">''</span><span class="p">,</span>
+                      <span class="n">routing_key</span><span class="o">=</span><span class="s">'hello'</span><span class="p">,</span>
+                      <span class="n">body</span><span class="o">=</span><span class="s">'Hello World!'</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">" [x] Sent 'Hello World!'"</span>
+</pre></div>
+
+
+<p>在退出程序之前，我们需要确认网络缓冲已经被刷写、消息已经投递到RabbitMQ。完成这些事情（正确的关闭连接）是很简单的。</p>
+<div class="highlight"><pre><span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+
+<h3>获取数据</h3>
+<div class="diagram">
+  <img src="./RabbitMQ tutorial -  Hello world! _files/receiving.png" height="100">
+  <div class="diagram_source">
+  digraph {
+      bgcolor=transparent;
+      truecolor=true;
+      rankdir=LR;
+      node [style="filled"];
+      //
+      subgraph cluster_Q1 {
+        label="hello";
+    color=transparent;
+    Q1 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      C1 [label="C", fillcolor="#33ccff"];
+      //
+      Q1 -&gt; C1;
+  }
+  </div>
+</div>
+
+<p>我们的第二个程序<span class="code ">receive.py</span>，将会从队列中获取消息并打印消息。 </p>
+<p>这次我们还是先要连接到RabbitMQ服务器。连接服务器的代码和之前是一样的。</p>
+<p>下一步也和之前一样，我们需要确认队列是存在的。使用<span class="code ">queue_declare</span>创建一个队列——我们可以运行这个命令很多次，但是只有一个队列会创建。 </p>
+<div class="highlight"><pre><span class="n">channel</span><span class="o">.</span><span class="n">queue_declare</span><span class="p">(</span><span class="n">queue</span><span class="o">=</span><span class="s">'hello'</span><span class="p">)</span>
+</pre></div>
+
+
+<p>你也许要问为什么重复声明了队列——我们已经在前面的代码中声明了它。如果我们确定了队列是已经存在的，那么我们可以不这么做。比如先运行<span class="code ">send.py</span>程序。可是我们并不确定哪个程序先运行，这种情况的话再程序中重复声明是好的做法。 </p>
+<blockquote>
+<h4>列出所有队列</h4>
+<p>你也许希望查看RabbitMQ由哪些队列、有多少消息在队列中。你可以使用<span class="code ">rabbitmqctl</span>工具（使用有权限的用户）： </p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo rabbitmqctl list_queues
+Listing queues ...
+hello    0
+...done.
+</pre></div>
+
+
+<p>(omit sudo on Windows)</p>
+<p>（在Windows中不需要sudo命令）</p>
+</blockquote>
+
+<p>从队列中获取消息相对来说稍显复杂。需要为队列定义一个<span class="code ">回调（callback）</span>函数。当我们获取到消息的时候，Pika库就会调用这个<span class="code ">回调（callback）</span>函数。我们的这个回调函数将会但因消息的内容到屏幕上。 </p>
+
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">" [x] Received </span><span class="si">%r</span><span class="s">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">body</span><span class="p">,)</span>
+</pre></div>
+
+
+<p>下一步，我们需要告诉RabbitMQ这个回调函数将会从<em>hello</em>队列中接收消息： </p>
+<div class="highlight"><pre><span class="n">channel</span><span class="o">.</span><span class="n">basic_consume</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span>
+                      <span class="n">queue</span><span class="o">=</span><span class="s">'hello'</span><span class="p">,</span>
+                      <span class="n">no_ack</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>要成功运行这些命令，我们必须保证队列是存在的，我们已经能够保证——我们之前已经使用创建了一个队列<span class="code ">queue_declare</span>。</p>
+<p><span class="code ">no_ack</span>参数<a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">稍后</a>会介绍。 </p>
+<p>最后，我们输入一个无限循环来等待消息数据并确运行回调函数。</p>
+<div class="highlight"><pre><span class="k">print</span> <span class="s">' [*] Waiting for messages. To exit press CTRL+C'</span>
+<span class="n">channel</span><span class="o">.</span><span class="n">start_consuming</span><span class="p">()</span>
+</pre></div>
+
+
+<h3>整合</h3>
+<p><span class="code ">send.py</span>的全部代码：</p>
+<table class="highlighttable" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="linenos"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="k">import</span> <span class="nn">pika</span>
+
+<span class="n">connection</span> <span class="o">=</span> <span class="n">pika</span><span class="o">.</span><span class="n">BlockingConnection</span><span class="p">(</span><span class="n">pika</span><span class="o">.</span><span class="n">ConnectionParameters</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span><span class="p">))</span>
+<span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">channel</span><span class="p">()</span>
+
+<span class="n">channel</span><span class="o">.</span><span class="n">queue_declare</span><span class="p">(</span><span class="n">queue</span><span class="o">=</span><span class="s">'hello'</span><span class="p">)</span>
+
+<span class="n">channel</span><span class="o">.</span><span class="n">basic_publish</span><span class="p">(</span><span class="n">exchange</span><span class="o">=</span><span class="s">''</span><span class="p">,</span>
+                      <span class="n">routing_key</span><span class="o">=</span><span class="s">'hello'</span><span class="p">,</span>
+                      <span class="n">body</span><span class="o">=</span><span class="s">'Hello World!'</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">" [x] Sent 'Hello World!'"</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</td></tr></tbody></table>
+
+<p><a href="http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py">(send.py 源码)</a></p>
+<p><span class="code ">receive.py</span>的全部代码：</p>
+<table class="highlighttable" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="linenos"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="k">import</span> <span class="nn">pika</span>
+
+<span class="n">connection</span> <span class="o">=</span> <span class="n">pika</span><span class="o">.</span><span class="n">BlockingConnection</span><span class="p">(</span><span class="n">pika</span><span class="o">.</span><span class="n">ConnectionParameters</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span><span class="p">))</span>
+<span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">channel</span><span class="p">()</span>
+
+<span class="n">channel</span><span class="o">.</span><span class="n">queue_declare</span><span class="p">(</span><span class="n">queue</span><span class="o">=</span><span class="s">'hello'</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">' [*] Waiting for messages. To exit press CTRL+C'</span>
+
+<span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">" [x] Received </span><span class="si">%r</span><span class="s">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">body</span><span class="p">,)</span>
+
+<span class="n">channel</span><span class="o">.</span><span class="n">basic_consume</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span>
+                      <span class="n">queue</span><span class="o">=</span><span class="s">'hello'</span><span class="p">,</span>
+                      <span class="n">no_ack</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">channel</span><span class="o">.</span><span class="n">start_consuming</span><span class="p">()</span>
+</pre></div>
+</td></tr></tbody></table>
+
+<p><a href="http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py">(receive.py 源码)</a></p>
+<p>现在就可以在终端中运行我们的程序了。首先，用<span class="code ">send.py</span>重续发送一条消息：</p>
+<div class="highlight"><pre> <span class="nv">$ </span>python send.py
+ <span class="o">[</span>x<span class="o">]</span> Sent <span class="s1">'Hello World!'</span>
+</pre></div>
+
+
+<p>生产者（producer）程序<span class="code ">send.py</span>每次运行之后就会停止。现在我们就来接收消息：</p>
+<div class="highlight"><pre> <span class="nv">$ </span>python receive.py
+ <span class="o">[</span>*<span class="o">]</span> Waiting <span class="k">for </span>messages. To <span class="nb">exit </span>press CTRL+C
+ <span class="o">[</span>x<span class="o">]</span> Received <span class="s1">'Hello World!'</span>
+</pre></div>
+
+
+<p>成功了！我们已经通过RabbitMQ发送第一条消息。你也许已经注意到了，<span class="code ">receive.py</span>程序并没有退出。它一直在准备获取消息，你可以通过Ctrl-C来终端它。 </p>
+
+<p>试下在新的终端中再次运行<span class="code ">send.py</span>。</p>
+<p>我们已经学会如何发送消息到一个已知队列中并接收消息。是时候移步到<a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">第二部分</a>了，我们将会建立一个简单的<em>工作队列（work queue）</em>。</p>
+</div><div class="clear"></div><div class="pageFooter"><p class="righter"><a href="http://www.rabbitmq.com/contact.html">Contact</a> |
+        <a href="http://www.rabbitmq.com/about.html">About</a></p><p>Copyright © 2011 VMware, Inc. All rights reserved.</p></div></div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-23165287-1']);
+  _gaq.push(['_setDomainName', 'adamlu.net']);
+  _gaq.push(['_setAllowHash', false]);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body></html>
